@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Allors.Workspace.Excel.Table&lt;T&gt;">
+    <Position X="3.75" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAAAMAAAAAACAAAAAAAAAAAEAAAAAgAAAA=</HashCode>
+      <FileName>Model\Table.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsAssociation>
+      <Property Name="Columns" />
+    </ShowAsAssociation>
+    <ShowAsCollectionAssociation>
+      <Property Name="Rows" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="Allors.Workspace.Excel.Row&lt;T&gt;">
+    <Position X="6.25" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAAAAAAAAIAAAAAAAAAAAAAAAABAAAAAAA=</HashCode>
+      <FileName>Model\Row.cs</FileName>
+    </TypeIdentifier>
+    <ShowAsCollectionAssociation>
+      <Property Name="Cells" />
+    </ShowAsCollectionAssociation>
+  </Class>
+  <Class Name="Allors.Workspace.Excel.Cell&lt;T&gt;">
+    <Position X="8.5" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAiAAAAAgAAAAAAA=</HashCode>
+      <FileName>Model\Cell.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Allors.Workspace.Excel.Column&lt;T&gt;" Collapsed="true">
+    <Position X="0.5" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAAAAEAAAAAAAAAAAAAEAAAAAAAA=</HashCode>
+      <FileName>Model\Column.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
