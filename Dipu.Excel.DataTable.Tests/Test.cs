@@ -8,9 +8,13 @@ namespace Dipu.Excel.DataTable.Tests
     {
         protected Test()
         {
-            this.Application = new ApplicationClass { Visible = true, };
+            this.Application = new ApplicationClass {Visible = true,};
             this.Workbook = this.Application.Workbooks.Add();
+
+            this.Population = new Population();
         }
+
+        public Population Population { get;  }
 
         public ApplicationClass Application { get; set; }
 

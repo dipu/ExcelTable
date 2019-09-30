@@ -23,6 +23,7 @@ namespace Dipu.Excel.DataTable
         {
             return new AllorsRange(this.Worksheet, fromRow, fromColumn, toRow, toColumn);
         }
+        
 
         public void Dispose()
         {

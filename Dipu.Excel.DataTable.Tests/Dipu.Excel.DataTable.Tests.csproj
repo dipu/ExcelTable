@@ -41,6 +41,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Population.cs" />
     <Compile Include="Test.cs" />
     <Compile Include="TableTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

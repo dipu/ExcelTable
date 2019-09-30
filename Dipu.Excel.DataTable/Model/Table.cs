@@ -1,12 +1,17 @@
 namespace Dipu.Excel.DataTable
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
-    using Microsoft.Office.Interop.Excel;
 
     public class Table<T>
     {
+        /// <summary>
+        /// Creates an Table, representing an Excel Range. startRow and startColumn are 1-based (like excel)
+        /// </summary>
+        /// <param name="allorsWorksheet"></param>
+        /// <param name="columns"></param>
+        /// <param name="startRow"></param>
+        /// <param name="startColumn"></param>
         public Table(AllorsWorksheet allorsWorksheet, Column<T>[] columns, int startRow, int startColumn)
         {
             this.AllorsWorksheet = allorsWorksheet;
@@ -20,16 +25,23 @@ namespace Dipu.Excel.DataTable
 
         public Column<T>[] Columns { get; }
 
+        /// <summary>
+        /// 1-Based StartRow. Points to the Excel Range.Row (Starting Row)
+        /// </summary>
         public int StartRow { get; }
 
+        /// <summary>
+        /// 1-Based StartColumn. Points to the Excel Range.Column (Starting Column)
+        /// </summary>
         public int StartColumn { get; }
 
         public List<Row<T>> Rows { get; set; }
 
         public void Bind(IEnumerable<T> data)
         {
+            var dataModel = data.ToArray();
             int i = 0;
-            foreach (var model in data)
+            foreach (var model in dataModel)
             {
                 if (this.Rows.Count == i)
                 {
@@ -43,6 +55,10 @@ namespace Dipu.Excel.DataTable
             }
 
             // Remove superfluous rows
+            if (this.Rows.Count > dataModel.Count())
+            {
+
+            }
         }
 
         public IReadOnlyList<int[]> Flush()
@@ -77,12 +93,15 @@ namespace Dipu.Excel.DataTable
 
             foreach (var range in ranges)
             {
+                // Zero-Based Row
                 var startRow = range[0];
-                var startColumn = this.StartColumn;
                 var endRow = range[1];
+                
+                // 1-Based Column
+                var startColumn = this.StartColumn;
                 var endColumn = this.StartColumn + this.Columns.Length - 1;
-
-                using (var allorsRange = this.AllorsWorksheet.CreateRange(startRow + 1, startColumn, endRow + 1, endColumn))
+                
+                using (var allorsRange = this.AllorsWorksheet.CreateRange(this.StartRow + startRow, startColumn, this.StartRow + endRow, endColumn))
                 {
                     var rowCount = endRow - startRow + 1;
                     var columnCount = this.Columns.Length;
