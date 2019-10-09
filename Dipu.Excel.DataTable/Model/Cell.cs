@@ -1,4 +1,3 @@
-using Microsoft.Office.Interop.Excel;
 using System;
 
 namespace Dipu.Excel.DataTable
@@ -7,8 +6,17 @@ namespace Dipu.Excel.DataTable
     {
         // ReSharper disable once InconsistentNaming
         private object value;
+        private IFormatter formatter;
 
-        public IFormatter Formatter { get; set; }
+        public IFormatter Formatter
+        {
+            get => formatter;
+            set
+            {
+                formatter = value;
+                this.PreviousFormatter = value;
+            }
+        }
 
         internal IFormatter PreviousFormatter { get; set; }
 
@@ -41,7 +49,7 @@ namespace Dipu.Excel.DataTable
         /// <summary>
         /// Binds the Value to the result of the Func&lt;T, model&gt; defined in the Column
         /// </summary>
-        public void Read()
+        public void Bind()
         {
             var model = this.Row.Model;
             this.Value = this.Column.Read(model);
@@ -51,28 +59,27 @@ namespace Dipu.Excel.DataTable
             }
         }
 
-        public DipuError Write(object value)
+        public DipuResult Write(object newValue)
         {
             if (this.Column.Write != null)
             {
-                if (this.Column.Write(this.Row.Model, value))
+                if (this.Column.Write(this.Row.Model, newValue))
                 {
-                    this.Value = value;
-                    return new DipuError() { };
+                    this.Value = newValue;
+                    return new DipuResult();
                 }
                 else
                 {
                     // No CanWrite -> Security
                     this.Row.Table.Reset(this);
-                    return new DipuError() { NotAutorised = true };
+                    return new DipuResult() { NotAutorised = true };
                 }
-
             }
             else
             {
-                // No Write defined, so this is a Derived Property
+                // No Write defined, so this is a Derived/Calculated Property, something that is readonly
                 this.Row.Table.Reset(this);
-                return new DipuError() { IsReadOnly = true };
+                return new DipuResult() { IsReadOnly = true };
             }
         }
 

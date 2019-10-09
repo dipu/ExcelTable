@@ -130,31 +130,56 @@ namespace Dipu.Excel.DataTable
                 }
             }
 
-            this.FlushFormat();
+            this.FlushFormatByColumn();
 
             return ranges;
         }
 
-        private void FlushFormat()
+        private void FlushFormatByColumn()
         {
-            // TODO: create batches of cells inside column
-
-            for (var i = 0; i < this.Columns.Length; i++)
+            if (this.Rows.Any())
             {
-                foreach (var row in this.Rows)
+                var fromRowIndex = this.StartRow;
+                var fromColumnIndex = this.StartColumn;
+
+                // We treat all rows in the same manner, security on all these cells is the same for all cells in a row
+                var toRowIndex = this.StartRow + this.Rows.Count - 1;
+
+                var toColumnIndex = this.StartColumn;
+
+                for (var i = 0; i < this.Columns.Length; i++)
                 {
-                    var cell = row.Cells[i];
+                    var cell = this.Rows[0].Cells[i];
 
-                    if (cell.PreviousFormatter != cell.Formatter)
+                    Cell<T> previousCell = null;
+                    if (i > 0)
                     {
-                        var formatter = cell.Formatter;
+                        previousCell = this.Rows[0].Cells[i - 1];
+                    }
 
-                        using (var dipuRange = this.DipuWorksheet.CreateRange(cell.Row.Index, cell.ColumnIndex, cell.Row.Index, cell.ColumnIndex))
+                    // Detect a difference in the  column formatting
+                    if (previousCell != null && previousCell.Formatter != cell.Formatter)
+                    {
+                        var formatter = previousCell.Formatter;
+
+                        if (formatter != null)
                         {
-                            formatter.Format(dipuRange.Range.Interior);
+                            using (var dipuRange = this.DipuWorksheet.CreateRange(fromRowIndex, fromColumnIndex, toRowIndex, toColumnIndex))
+                            {
+                                formatter.Format(dipuRange.Range);
+                            }
                         }
 
-                        cell.PreviousFormatter = formatter;
+                        cell.PreviousFormatter = cell.Formatter;
+
+                        // Set next starting Point to the next column
+                        fromColumnIndex = toColumnIndex + 1;
+                        toColumnIndex = fromColumnIndex;
+                    }
+                    else
+                    {
+                        // increase the toColumnIndex.
+                        toColumnIndex = this.StartColumn + i;
                     }
                 }
             }

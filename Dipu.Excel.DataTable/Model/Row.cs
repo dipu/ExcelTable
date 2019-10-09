@@ -33,7 +33,7 @@ namespace Dipu.Excel.DataTable
                 }
 
                 var cell = this.Cells[i];
-                cell.Read();
+                cell.Bind();
             }
 
             // Remove superfluous cells

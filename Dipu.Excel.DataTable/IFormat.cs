@@ -4,6 +4,6 @@ namespace Dipu.Excel.DataTable
 {
     public interface IFormatter
     {
-        void Format(Interior interior);
+        void Format(Range range);
     }
 }

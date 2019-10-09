@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Dipu.Excel.DataTable
 {
-    public struct DipuError
+    public struct DipuResult
     {
         public bool NotAutorised  { get; set; }
         
