@@ -1,5 +1,6 @@
 namespace Dipu.Excel.DataTable
 {
+    using System;
     using System.Collections.Generic;
     using System.Linq;
 
@@ -8,20 +9,20 @@ namespace Dipu.Excel.DataTable
         /// <summary>
         /// Creates an Table, representing an Excel Range. startRow and startColumn are 1-based (like excel)
         /// </summary>
-        /// <param name="allorsWorksheet"></param>
+        /// <param name="dipuWorksheet"></param>
         /// <param name="columns"></param>
         /// <param name="startRow"></param>
         /// <param name="startColumn"></param>
-        public Table(AllorsWorksheet allorsWorksheet, Column<T>[] columns, int startRow, int startColumn)
+        public Table(DipuWorksheet dipuWorksheet, Column<T>[] columns, int startRow, int startColumn)
         {
-            this.AllorsWorksheet = allorsWorksheet;
+            this.DipuWorksheet = dipuWorksheet;
             this.Columns = columns;
             this.StartRow = startRow;
             this.StartColumn = startColumn;
             this.Rows = new List<Row<T>>();
         }
 
-        public AllorsWorksheet AllorsWorksheet { get; }
+        public DipuWorksheet DipuWorksheet { get; }
 
         public Column<T>[] Columns { get; }
 
@@ -37,19 +38,21 @@ namespace Dipu.Excel.DataTable
 
         public List<Row<T>> Rows { get; set; }
 
-        public void Bind(IEnumerable<T> data)
+
+        public void Read(IEnumerable<T> data)
         {
             var dataModel = data.ToArray();
             int i = 0;
+
             foreach (var model in dataModel)
             {
                 if (this.Rows.Count == i)
                 {
-                    this.Rows.Add(new Row<T>());
+                    this.Rows.Add(new Row<T>(this, this.StartRow + i));
                 }
 
                 var row = this.Rows[i];
-                row.Bind(model, this.Columns);
+                row.Read(model, this.Columns);
 
                 ++i;
             }
@@ -58,6 +61,14 @@ namespace Dipu.Excel.DataTable
             if (this.Rows.Count > dataModel.Count())
             {
 
+            }
+        }
+
+        internal void Reset(Cell<T> cell)
+        {
+            using (var dipuRange = this.DipuWorksheet.CreateRange(cell.Row.Index, cell.ColumnIndex, cell.Row.Index, cell.ColumnIndex))
+            {
+                dipuRange.Range.Value2 = cell.Value;
             }
         }
 
@@ -96,12 +107,12 @@ namespace Dipu.Excel.DataTable
                 // Zero-Based Row
                 var startRow = range[0];
                 var endRow = range[1];
-                
+
                 // 1-Based Column
                 var startColumn = this.StartColumn;
                 var endColumn = this.StartColumn + this.Columns.Length - 1;
-                
-                using (var allorsRange = this.AllorsWorksheet.CreateRange(this.StartRow + startRow, startColumn, this.StartRow + endRow, endColumn))
+
+                using (var dipuRange = this.DipuWorksheet.CreateRange(this.StartRow + startRow, startColumn, this.StartRow + endRow, endColumn))
                 {
                     var rowCount = endRow - startRow + 1;
                     var columnCount = this.Columns.Length;
@@ -115,11 +126,38 @@ namespace Dipu.Excel.DataTable
                         }
                     }
 
-                    allorsRange.Range.Value2 = array;
+                    dipuRange.Range.Value2 = array;
                 }
             }
 
+            this.FlushFormat();
+
             return ranges;
+        }
+
+        private void FlushFormat()
+        {
+            // TODO: create batches of cells inside column
+
+            for (var i = 0; i < this.Columns.Length; i++)
+            {
+                foreach (var row in this.Rows)
+                {
+                    var cell = row.Cells[i];
+
+                    if (cell.PreviousFormatter != cell.Formatter)
+                    {
+                        var formatter = cell.Formatter;
+
+                        using (var dipuRange = this.DipuWorksheet.CreateRange(cell.Row.Index, cell.ColumnIndex, cell.Row.Index, cell.ColumnIndex))
+                        {
+                            formatter.Format(dipuRange.Range.Interior);
+                        }
+
+                        cell.PreviousFormatter = formatter;
+                    }
+                }
+            }
         }
     }
 }

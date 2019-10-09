@@ -14,9 +14,9 @@ namespace Dipu.Excel.DataTable.Tests
             {
                 var companyColumns = new[]
                 {
-                    new Column<CompanyModel> {ToExcel = v => v.Name, ToDomain = (model,value) => model.Name = Convert.ToString(value)},
-                    new Column<CompanyModel> {ToExcel = v => v.KeyWords[0], ToDomain = (model,value) => model.KeyWords[0] = Convert.ToString(value)},
-                    new Column<CompanyModel> {ToExcel = v => v.KeyWords[1], ToDomain = (model,value) => model.KeyWords[1] = Convert.ToString(value)},
+                    new Column<CompanyModel> {Read = v => v.Name, Write = (model,value) => model.Name = Convert.ToString(value)},
+                    new Column<CompanyModel> {Read = v => v.KeyWords[0], Write = (model,value) => model.KeyWords[0] = Convert.ToString(value)},
+                    new Column<CompanyModel> {Read = v => v.KeyWords[1], Write = (model,value) => model.KeyWords[1] = Convert.ToString(value)},
                 };
 
                 return companyColumns;
@@ -29,10 +29,10 @@ namespace Dipu.Excel.DataTable.Tests
             {
                 var productColumns = new[]
                 {
-                    new Column<ProductModel> {ToExcel = v => v.Name, ToDomain = (model, name) => model.Name = name.ToString()},
-                    new Column<ProductModel> {ToExcel = v => v.Description, ToDomain = (model, description) => model.Description = description.ToString()},
-                    new Column<ProductModel> {ToExcel = v => v.Price, ToDomain =  (product, price) => product.Price = Convert.ToDecimal(price)},
-                    new Column<ProductModel> {ToExcel = v => v.Manufacturer?.Name, ToDomain =  (product, name) => product.Manufacturer = this.Companies.FirstOrDefault(v => string.Equals(v.Name, (string) name, StringComparison.OrdinalIgnoreCase))},
+                    new Column<ProductModel> {Read = v => v.Name, Write = (model, name) => model.Name = name.ToString()},
+                    new Column<ProductModel> {Read = v => v.Description, Write = (model, description) => model.Description = description.ToString()},
+                    new Column<ProductModel> {Read = v => v.Price, Write =  (product, price) => product.Price = Convert.ToDecimal(price)},
+                    new Column<ProductModel> {Read = v => v.Manufacturer?.Name, Write =  (product, name) => product.Manufacturer = this.Companies.FirstOrDefault(v => string.Equals(v.Name, (string) name, StringComparison.OrdinalIgnoreCase))},
                 };
 
                 return productColumns;

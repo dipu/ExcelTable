@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Class Name="Allors.Workspace.Excel.Table&lt;T&gt;">
-    <Position X="3.75" Y="1" Width="1.5" />
+<ClassDiagram MajorVersion="1" MinorVersion="1" MembersFormat="NameAndType">
+  <Class Name="Dipu.Excel.DataTable.Table&lt;T&gt;">
+    <Position X="3.75" Y="1" Width="2.5" />
     <TypeIdentifier>
-      <HashCode>AAAAgAAAAAAAAMAAAAAACAAAAAAAAAAAEAAAAAgAAAA=</HashCode>
+      <HashCode>AAAAgAAAAAAAAMAAAAAACAAAAAAAAAAAEAAAAAgIAAA=</HashCode>
       <FileName>Model\Table.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -13,27 +13,27 @@
       <Property Name="Rows" />
     </ShowAsCollectionAssociation>
   </Class>
-  <Class Name="Allors.Workspace.Excel.Row&lt;T&gt;">
-    <Position X="6.25" Y="1" Width="1.5" />
+  <Class Name="Dipu.Excel.DataTable.Row&lt;T&gt;">
+    <Position X="7.75" Y="1" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAgAAAAAAAAAAAAAIAAAAAAAAAAAAAAAABAAAAAAA=</HashCode>
+      <HashCode>AAAAgAAAAAAAAAAAAAIAAAAAAAAAAAAAAAgBAAAAAAA=</HashCode>
       <FileName>Model\Row.cs</FileName>
     </TypeIdentifier>
     <ShowAsCollectionAssociation>
       <Property Name="Cells" />
     </ShowAsCollectionAssociation>
   </Class>
-  <Class Name="Allors.Workspace.Excel.Cell&lt;T&gt;">
-    <Position X="8.5" Y="1" Width="1.5" />
+  <Class Name="Dipu.Excel.DataTable.Cell&lt;T&gt;">
+    <Position X="10.75" Y="1" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAiAAAAAgAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAABAAAAgAAAAAiAAAAAgAAEAAAA=</HashCode>
       <FileName>Model\Cell.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="Allors.Workspace.Excel.Column&lt;T&gt;" Collapsed="true">
-    <Position X="0.5" Y="1" Width="1.5" />
+  <Class Name="Dipu.Excel.DataTable.Column&lt;T&gt;">
+    <Position X="0.5" Y="1" Width="2" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAAAAAAAAQAAAAAEAAAAAAAAAAAAAEAAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAEAAAA=</HashCode>
       <FileName>Model\Column.cs</FileName>
     </TypeIdentifier>
   </Class>

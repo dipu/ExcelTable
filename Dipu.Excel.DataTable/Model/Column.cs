@@ -4,8 +4,10 @@ namespace Dipu.Excel.DataTable
 
     public class Column<T>
     {
-        public Func<T, object> ToExcel;
+        public Func<T, object> Read;
 
-        public Action<T, object> ToDomain;
+        public Func<T, object, bool> Write;
+
+        public Func<Cell<T>, IFormatter> Format;
     }
 }

@@ -4,9 +4,9 @@ namespace Dipu.Excel.DataTable
     using System.Runtime.InteropServices;
     using Microsoft.Office.Interop.Excel;
 
-    public class AllorsRange : IDisposable
+    public class DipuRange : IDisposable
     {
-        public AllorsRange(Worksheet worksheet, int fromRow, int fromColumn, int toRow, int toColumn)
+        public DipuRange(Worksheet worksheet, int fromRow, int fromColumn, int toRow, int toColumn)
         {
             Range fromCell = null;
             Range toCell = null;
@@ -31,7 +31,7 @@ namespace Dipu.Excel.DataTable
             }
         }
 
-        ~AllorsRange()
+        ~DipuRange()
         {
             this.Dispose(false);
         }

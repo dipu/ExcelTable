@@ -5,23 +5,23 @@ namespace Dipu.Excel.DataTable
     using System.Runtime.InteropServices;
     using Microsoft.Office.Interop.Excel;
 
-    public class AllorsWorksheet : IDisposable
+    public class DipuWorksheet : IDisposable
     {
-        public AllorsWorksheet(Worksheet worksheet)
+        public DipuWorksheet(Worksheet worksheet)
         {
             this.Worksheet = worksheet;
         }
 
-        ~AllorsWorksheet()
+        ~DipuWorksheet()
         {
             this.Dispose(false);
         }
 
         public Worksheet Worksheet { get; private set; }
 
-        public AllorsRange CreateRange(int fromRow, int fromColumn, int toRow, int toColumn)
+        public DipuRange CreateRange(int fromRow, int fromColumn, int toRow, int toColumn)
         {
-            return new AllorsRange(this.Worksheet, fromRow, fromColumn, toRow, toColumn);
+            return new DipuRange(this.Worksheet, fromRow, fromColumn, toRow, toColumn);
         }
         
 

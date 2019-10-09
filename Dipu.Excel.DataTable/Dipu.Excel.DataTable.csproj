@@ -33,6 +33,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -41,12 +42,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AllorsRange.cs" />
+    <Compile Include="DipuRange.cs" />
+    <Compile Include="IFormat.cs" />
     <Compile Include="Model\Column.cs" />
+    <Compile Include="Model\DipuError.cs" />
     <Compile Include="Model\Table.cs" />
     <Compile Include="Model\Row.cs" />
     <Compile Include="Model\Cell.cs" />
-    <Compile Include="AllorsWorksheet.cs" />
+    <Compile Include="DipuWorksheet.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
