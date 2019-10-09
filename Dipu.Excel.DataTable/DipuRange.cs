@@ -36,12 +36,11 @@ namespace Dipu.Excel.DataTable
             this.Dispose(false);
         }
 
-        public Range Range { get; private set; }
+        public Range Range { get; }
 
         public void Dispose()
         {
             this.Dispose(true);
-            GC.SuppressFinalize(this);
         }
 
         protected virtual void Dispose(bool disposing)
@@ -49,7 +48,6 @@ namespace Dipu.Excel.DataTable
             if (this.Range != null)
             {
                 Marshal.FinalReleaseComObject(this.Range);
-                this.Range = null;
             }
         }
     }

@@ -6,6 +6,7 @@ namespace Dipu.Excel.DataTable
     {
         // ReSharper disable once InconsistentNaming
         private object value;
+        // ReSharper disable once InconsistentNaming
         private IFormatter formatter;
 
         public IFormatter Formatter
@@ -72,7 +73,7 @@ namespace Dipu.Excel.DataTable
                 {
                     // No CanWrite -> Security
                     this.Row.Table.Reset(this);
-                    return new DipuResult() { NotAutorised = true };
+                    return new DipuResult() { NotAuthorized = true };
                 }
             }
             else

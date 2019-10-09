@@ -1,6 +1,5 @@
 namespace Dipu.Excel.DataTable
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
 
@@ -57,11 +56,8 @@ namespace Dipu.Excel.DataTable
                 ++i;
             }
 
-            // Remove superfluous rows
-            if (this.Rows.Count > dataModel.Count())
-            {
-
-            }
+            //TODO Remove superfluous rows
+           
         }
 
         internal void Reset(Cell<T> cell)

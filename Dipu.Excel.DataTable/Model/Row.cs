@@ -36,7 +36,7 @@ namespace Dipu.Excel.DataTable
                 cell.Bind();
             }
 
-            // Remove superfluous cells
+            //TODO Remove superfluous cells
         }
     }
 }
